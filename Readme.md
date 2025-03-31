@@ -70,3 +70,21 @@ is same as
 ## combineReducers(reducers)
 The ```combineReducers``` helper function turns an object whose values are different "slice reducer" functions into a single combined reducer function you can pass to Redux Toolkit's ```configureStore``` (or the legacy ```createStore``` method)
 > When your app increased in size, you can split reducers into seperate files and keep them completely independent and managing different features. Like, authReducer, userReducer, profileReducer, etc.
+
+## immer
+```npm install immer```
+immer handles immutable data structures and works very well with react.
+```return produce(state, (draft) => {```
+```    draft.address.street = action.payload;```
+```});```
+
+is same as
+
+```return {```
+```    ...state,```
+```    address: {```
+```    ...state.address,```
+```    street: action.payload,```
+```    },```
+```};```
+
