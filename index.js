@@ -3,12 +3,20 @@ const redux = require("redux")
 const createStore = redux.createStore//redux.configureStore
 
 const CAKE_ORDERED = "CAKE_ORDERED"
+const CAKE_RESTOCKED = "CAKE_RESTOCKED"
 
 function orderCake() {
   return {
     type: CAKE_ORDERED,
-    quantity: 1,
+    payload: 1, // in redux the convention is to use a property called 'payload' for any additional information you want to send.
   };
+}
+
+function restockCake(qty = 1){
+    return {
+        type: CAKE_RESTOCKED,
+        payload: qty,
+    }
 }
 
 const initialState = {
@@ -24,6 +32,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         numOfCake: state.numOfCake - 1,
       }
+    case CAKE_RESTOCKED:
+        return {
+            ...state,
+            numOfCake: state.numOfCake + action.payload,
+        }
     default:
       return state
   }
@@ -39,6 +52,8 @@ const unsubscribe = store.subscribe(() =>
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
+store.dispatch(restockCake(3));
+store.dispatch(orderCake());
 
 unsubscribe();
 
@@ -51,3 +66,5 @@ store.dispatch(orderCake());
 // Updated State  { numOfCake: 9 }
 // Updated State  { numOfCake: 8 }
 // Updated State  { numOfCake: 7 }
+// Updated State  { numOfCake: 10 }
+// Updated State  { numOfCake: 9 }
