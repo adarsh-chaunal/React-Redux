@@ -45,5 +45,25 @@ Recucer - (previousState, action) => newState
 > Allows state to be updated via **dispatch(action)**
 > Registers listners via **subscribe(listner)**. listner is a function that is called when a state is changed
 > Handles unregistering(unsubscribing) of listners via the function returned by **subscriber(listner)**
-> 
+
+
+## createStore(reducer, preloadedState?, enhancer?)
+Creates a Redux store that holds the complete state tree of your app. There should only be a single store in your app.
+>Instead, you should use the ```configureStore``` method from our official Redux Toolkit package, which wraps ```createStore``` to provide a better default setup and configuration approach. You should also use Redux Toolkit's ```createSlice``` method for writing reducer logic.
+
+## bindActionCreators(actionCreators, dispatch)
+bindActionCreators function turns an object (whos values are action creators) into an object with the same keys but every action creator wraped into a dispatch call that they may be invoked directly.
+
+```const actions = bindActionCreators({``` ```orderCake, restockCake }, store.dispatch)``` 
+```actions.orderCake()```
+```actions.orderCake()```
+```actions.orderCake()```
+```actions.restockCake(3)```
+
+is same as
+
+```store.dispatch(orderCake());```
+```store.dispatch(orderCake());```
+```store.dispatch(orderCake());```
+```store.dispatch(restockCake(3));```
 
